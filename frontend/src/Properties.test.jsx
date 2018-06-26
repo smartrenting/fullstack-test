@@ -12,8 +12,12 @@ const mocks = [
     result: {
       data: {
         properties: [
-          { id: '1', title: 'A', location: 'test' },
-          { id: '2', title: 'B', location: 'test' }],
+          {
+            id: '1', title: 'A', location: 'test', owner: { name: 'Bob' },
+          },
+          {
+            id: '2', title: 'B', location: 'test', owner: { name: 'Jack' },
+          }],
       },
     },
   },
@@ -47,5 +51,5 @@ it('eventually renders the list of properties', async () => {
 
   await wait(0);
   const tree = component.toJSON();
-  expect(tree.length).toBe(2);
+  expect(tree.children.length).toBe(3);
 });

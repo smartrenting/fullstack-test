@@ -1,17 +1,20 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import { FlexHeading, FlexItem, FlexSection } from './style';
 
-export const PROPERTIES_QUERY = gql`{ properties { title } }`;
+export const PROPERTIES_QUERY = gql`{ properties { title location owner { name } } }`;
 
-const Property = styled.div`
+const Property = FlexSection.extend`
 `;
 
 const Properties = ({ properties }) => (
-  properties.map(({ title }) => (
+  properties.map(({ title, location, owner }) => (
     <Property key={title}>
-      <p>{title}</p>
+      <FlexItem>{title}</FlexItem>
+      <FlexItem>{location}</FlexItem>
+      <FlexItem>{owner.name}</FlexItem>
+      <FlexItem />
     </Property>
   ))
 );
@@ -22,7 +25,17 @@ const Component = () => (
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
 
-      return <Properties properties={data.properties} />;
+      return (
+        <div>
+          <FlexHeading>
+            <FlexItem>Property name</FlexItem>
+            <FlexItem>Property location</FlexItem>
+            <FlexItem>Property owner</FlexItem>
+            <FlexItem>Actions</FlexItem>
+          </FlexHeading>
+          <Properties properties={data.properties} />
+        </div>
+      );
     }}
   </Query>
 );
