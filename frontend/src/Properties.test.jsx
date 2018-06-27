@@ -9,17 +9,11 @@ const mocks = [
     request: {
       query: PROPERTIES_QUERY,
     },
-    result: {
-      data: {
-        properties: [
-          {
-            id: '1', title: 'A', location: 'test', owner: { name: 'Bob' },
-          },
-          {
-            id: '2', title: 'B', location: 'test', owner: { name: 'Jack' },
-          }],
-      },
-    },
+    result: { data: {
+      properties: [
+        { id: '1', title: 'Property title', location: 'Property location', owner: { name: 'Property owner' } },
+        { id: '2', title: 'B', location: 'test', owner: { name: 'Jack' } }],
+    } },
   },
 ];
 
@@ -52,4 +46,7 @@ it('eventually renders the list of properties', async () => {
   await wait(0);
   const tree = component.toJSON();
   expect(tree.children.length).toBe(3);
+  expect(tree.children[1].children[0].children).toContain('Property title');
+  expect(tree.children[1].children[1].children).toContain('Property location');
+  expect(tree.children[1].children[2].children).toContain('Property owner');
 });

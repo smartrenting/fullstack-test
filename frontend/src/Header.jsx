@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import theme from './style';
 
 const Header = styled.header`
   background-color: #fff;
@@ -14,6 +15,14 @@ const LinkItem = styled.li`
   margin: 5px;
 `;
 
+const Link = styled(NavLink)`
+  text-decoration: none;
+  color: ${theme.secondary};
+  &:hover {
+    color: ${theme.primary};
+  }
+`;
+
 const Links = styled.ul`
   margin: 0px;
 `;
@@ -22,14 +31,10 @@ const Component = () => (
   <Header>
     <Links>
       <LinkItem>
-        <Link to="/">
-          Home
-        </Link>
+        <Link to="/">Home</Link>
       </LinkItem>
       <LinkItem>
-        <Link to="/about">
-          About
-        </Link>
+        <Link to="/about">About</Link>
       </LinkItem>
     </Links>
   </Header>

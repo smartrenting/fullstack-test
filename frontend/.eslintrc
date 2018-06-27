@@ -5,6 +5,7 @@
       "jest": true
     },
     "rules": {
-      "react/jsx-one-expression-per-line": false
+      "react/jsx-one-expression-per-line": false,
+      "object-curly-newline": 0
     }
   }
