@@ -31,7 +31,7 @@ const Component = () => (
   <Header>
     <Links>
       <LinkItem>
-        <Link to="/">Home</Link>
+        <Link to="/">Properties</Link>
       </LinkItem>
       <LinkItem>
         <Link to="/about">About</Link>

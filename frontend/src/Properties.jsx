@@ -1,14 +1,15 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import { FlexHeading, FlexItem, FlexSection, Button, Heading } from './style';
+import { NavLink } from 'react-router-dom';
+import { Page, FlexHeading, FlexItem, FlexSection, Button, Heading, Skip } from './style';
 
-export const PROPERTIES_QUERY = gql`{ properties { id title location owner { name } } }`;
+const PROPERTIES_QUERY = gql`{ properties { id title location owner { name } } }`;
 
 const Property = FlexSection.extend`
 `;
 
-const Properties = ({ properties }) => (
+const PropertiesList = ({ properties }) => (
   properties.map(({ id, title, location, owner }) => (
     <Property key={id}>
       <FlexItem>{title}</FlexItem>
@@ -22,22 +23,32 @@ const Properties = ({ properties }) => (
 const Component = () => (
   <Query query={PROPERTIES_QUERY}>
     {({ loading, error, data }) => {
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error :(</p>;
+      let pageContent;
+      if (loading) { pageContent = <p>Loading...</p>; } else
+      if (error) { pageContent = <p>Error :(</p>; } else {
+        pageContent = (
+          <div>
+            <FlexHeading>
+              <FlexItem><Heading>Property</Heading></FlexItem>
+              <FlexItem><Heading>Location</Heading></FlexItem>
+              <FlexItem><Heading>Owner</Heading></FlexItem>
+              <FlexItem><Heading>Actions</Heading></FlexItem>
+            </FlexHeading>
+            <PropertiesList properties={data.properties} />
+          </div>
+        );
+      }
 
       return (
-        <div>
-          <FlexHeading>
-            <FlexItem><Heading>Property name</Heading></FlexItem>
-            <FlexItem><Heading>Property location</Heading></FlexItem>
-            <FlexItem><Heading>Property owner</Heading></FlexItem>
-            <FlexItem><Heading>Actions</Heading></FlexItem>
-          </FlexHeading>
-          <Properties properties={data.properties} />
-        </div>
+        <Page>
+          {pageContent}
+          <Skip />
+          <NavLink to="/about"><Button>ADD PROPERTY</Button></NavLink>
+        </Page>
       );
     }}
   </Query>
 );
 
 export default Component;
+export { PropertiesList, PROPERTIES_QUERY };

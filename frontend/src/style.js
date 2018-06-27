@@ -7,6 +7,11 @@ const theme = {
   textAlt: '#fff',
 };
 
+const Page = styled.div`
+  margin: 10px;
+  text-align: center;
+`;
+
 const FlexSection = styled.section`
   display: flex;
   justify-content: center;
@@ -25,6 +30,7 @@ const FlexItem = styled.div`
 `;
 
 const Button = styled.button`
+  cursor: pointer;
   display: inline-block;
   width: auto;
   padding: 0px 30px;
@@ -49,6 +55,7 @@ const Heading = styled.h3`
   color: ${theme.secondary}
 `;
 
+const Skip = styled.div` height: 40px;`;
 const Link = styled.p`
   color: ${theme.text};
   text-decoration: none;
@@ -70,5 +77,16 @@ const Link = styled.p`
   }
 `;
 
-export { Button, FlexHeading, FlexItem, FlexSection, Title, SectionTitle, Heading, Link };
+export {
+  Button,
+  FlexHeading,
+  FlexItem,
+  FlexSection,
+  Title,
+  SectionTitle,
+  Heading,
+  Link,
+  Page,
+  Skip,
+};
 export default theme;
